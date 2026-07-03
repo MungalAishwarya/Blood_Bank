@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff4d4d, #b30000);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #800000;
+            padding: 15px 40px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            margin-left: 20px;
+        }
+
+        .nav-links a:hover {
+            color: #ffd6d6;
+        }
+
+        /* FORM CONTAINER */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .form-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        }
+
+        .form-box h2 {
+            text-align: center;
+            color: #b30000;
+            margin-bottom: 20px;
+        }
+
+        .form-box label {
+            font-weight: bold;
+        }
+
+        .form-box input,
+        .form-box select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e60000;
+        }
+
+        .msg {
+            text-align: center;
+            color: green;
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">🩸 BloodBank</div>
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'search' %}">Search</a>
+    </div>
+</div>
+
+<!-- FORM -->
+<div class="container">
+    <div class="form-box">
+        <h2>Donor Registration</h2>
+
+        <div class="msg">{{ msg }}</div>
+
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+
+            <label>Donor ID</label>
+            <input type="number" name="ID" required>
+
+            <label>Name</label>
+            <input type="text" name="name" required>
+
+            <label>Gender</label>
+            <input type="text" name="gender" placeholder="Male / Female" required>
+
+            <label>Age</label>
+            <input type="number" name="age" required>
+
+            <label>Phone No</label>
+            <input type="number" name="phoneno" required>
+
+            <label>Blood Group</label>
+            <select name="BGroup" required>
+                <option value="">Select</option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>O+</option>
+                <option>O-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+            </select>
+
+            <label>State</label>
+            <input type="text" name="state" required>
+
+            <label>City</label>
+            <input type="text" name="city" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>© 2026 Blood Donation System</p>
+</div>
+
+</body>
+</html>

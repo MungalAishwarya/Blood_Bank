@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Donor</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff4d4d, #b30000);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #800000;
+            padding: 15px 40px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            margin-left: 20px;
+        }
+
+        .nav-links a:hover {
+            color: #ffd6d6;
+        }
+
+        /* CONTAINER */
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 700px;
+            box-shadow: 0px 0px 12px rgba(0,0,0,0.3);
+        }
+
+        .search-box h2 {
+            text-align: center;
+            color: #b30000;
+            margin-bottom: 20px;
+        }
+
+        /* SEARCH BAR */
+        .search-bar {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e60000;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background-color: #b30000;
+            color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ffe6e6;
+        }
+
+        /* MESSAGE */
+        .msg {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            color: red;
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">🩸 BloodBank</div>
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'search' %}">Search</a>
+    </div>
+</div>
+
+<!-- SEARCH SECTION -->
+<div class="container">
+    <div class="search-box">
+        <h2>Search Blood Donor</h2>
+
+        <form action="{% url 'search' %}" method="post">
+            {% csrf_token %}
+
+            <!-- SEARCH BAR -->
+            <div class="search-bar">
+                <input type="text" name="BGroup" placeholder="Enter Blood Group (e.g. A+)" required>
+                <button type="submit" class="btn">Search</button>
+
+            </div>
+
+            <!-- RESULT TABLE -->
+            {% if d1 %}
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th>Blood Group</th>
+                    <th>State</th>
+                    <th>City</th>
+                </tr>
+
+                {% for d in d1 %}
+                <tr>
+                    <td>{{ d.ID }}</td>
+                    <td>{{ d.name }}</td>
+                    <td>{{ d.gender }}</td>
+                    <td>{{ d.age }}</td>
+                    <td>{{ d.phoneno }}</td>
+                    <td>{{ d.BGroup }}</td>
+                    <td>{{ d.state }}</td>
+                    <td>{{ d.city }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+                <div class="msg">No Data Found</div>
+            {% endif %}
+
+        </form>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>© 2026 Blood Donation System</p>
+</div>
+
+</body>
+</html>
